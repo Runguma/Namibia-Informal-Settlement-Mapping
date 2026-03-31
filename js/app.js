@@ -26,6 +26,10 @@ const MapManager = {
   facilitiesLayer: null,
 
   facilityLayers: {},
+  facilityLayersPlain: {},
+  useClustering: true,
+
+  facilityLayers: {},
   facilityVisibility: {
     education: true,
     health: true,
@@ -106,14 +110,10 @@ const MapManager = {
 
     const makeCluster = () => L.markerClusterGroup({
       disableClusteringAtZoom: 13,
-      showCoverageOnHover: false,
-      spiderfyOnMaxZoom: true,
-      animate: true,
-      animateAddingMarkers: false,
-      chunkedLoading: true,
-      chunkInterval: 150,
-      chunkDelay: 30
+      showCoverageOnHover: false
     });
+
+    const makePlain = () => L.layerGroup();
 
     this.facilityLayers = {
       administration: makeCluster(),
@@ -131,6 +131,24 @@ const MapManager = {
       waste: makeCluster(),
       other: makeCluster()
     };
+
+    this.facilityLayersPlain = {
+      administration: makePlain(),
+      sanitation: makePlain(),
+      water: makePlain(),
+      education: makePlain(),
+      health: makePlain(),
+      landmark: makePlain(),
+      lighting: makePlain(),
+      market: makePlain(),
+      socialcare: makePlain(),
+      publicspace: makePlain(),
+      transport: makePlain(),
+      religious: makePlain(),
+      waste: makePlain(),
+      other: makePlain()
+    };
+
 
     Object.values(this.facilityLayers).forEach(layer => this.map.addLayer(layer));
 
@@ -166,6 +184,43 @@ const MapManager = {
     if (!bounds) return;
     const padded = bounds.pad(0.3);
     this.map.setMaxBounds(padded);
+  },
+
+  toggleClustering(enabled) {
+    this.useClustering = enabled;
+
+    Object.values(this.facilityLayers).forEach(l => this.map.removeLayer(l));
+    Object.values(this.facilityLayersPlain).forEach(l => this.map.removeLayer(l));
+
+    App.update();
+
+    const facilityToggleMap = {
+      toggleAdministration: "administration",
+      toggleSanitation: "sanitation",
+      toggleWater: "water",
+      toggleEducation: "education",
+      toggleHealth: "health",
+      toggleLandmark: "landmark",
+      toggleLighting: "lighting",
+      toggleMarket: "market",
+      toggleSocialCare: "socialcare",
+      togglePublicSpace: "publicspace",
+      toggleTransport: "transport",
+      toggleReligious: "religious",
+      toggleWaste: "waste",
+      toggleOtherFacilities: "other"
+    };
+
+    Object.entries(facilityToggleMap).forEach(([id, key]) => {
+      const checkbox = document.getElementById(id);
+      if (!checkbox || !checkbox.checked) return;
+
+      const layer = enabled
+        ? this.facilityLayers[key]
+        : this.facilityLayersPlain[key];
+
+      this.map.addLayer(layer);
+    });
   }
 };
 
@@ -260,11 +315,12 @@ const StyleManager = {
             <i class="fa-solid ${iconClass}"></i>
           </div>
         `,
-        iconSize: [15, 15],
-        iconAnchor: [7.5, 7.5]
+        iconSize: [5, 5],
+        iconAnchor: [5, 5]
       })
     });
   }
+  
 };
 
 // ===============================
@@ -274,7 +330,8 @@ const Renderer = {
   render(features) {
     if (!MapManager.facilityLayers) return;
 
-    Object.values(MapManager.facilityLayers).forEach(layer => layer.clearLayers());
+    Object.values(MapManager.facilityLayers).forEach(l => l.clearLayers());
+    Object.values(MapManager.facilityLayersPlain).forEach(l => l.clearLayers());
 
     if (!features || features.length === 0) return;
 
@@ -305,7 +362,11 @@ const Renderer = {
 
     Object.entries(groupedMarkers).forEach(([group, markers]) => {
       if (markers.length > 0) {
-        MapManager.facilityLayers[group].addLayers(markers);
+        if (MapManager.useClustering) {
+          MapManager.facilityLayers[group].addLayers(markers);
+        } else {
+          markers.forEach(m => MapManager.facilityLayersPlain[group].addLayer(m));
+        }
       }
     });
   },

@@ -132,17 +132,6 @@
 
       <div class="layer-panel-body" id="layerPanelBody">
       <div class="layer-group-title"><u>Facility Layers</u></div>
-
-
-      <label class="switch-row" for="toggleClustering">
-        <span class="layer-label-text">Enable Clustering</span>
-        <span class="switch">
-          <input type="checkbox" id="toggleClustering" checked>
-          <span class="slider"></span>
-        </span>
-      </label>
-
-
       <label>
         <input type="checkbox" id="toggleAdministration">
         <span class="layer-label-text" checked>Administration</span>
@@ -295,10 +284,6 @@
     MapManager.toggleLayer(MapManager.subboundaryLayer, e.target.checked);
   });
 
-  document.getElementById("toggleClustering").addEventListener("change", (e) => {
-    MapManager.toggleClustering(e.target.checked);
-  });
-
   document.getElementById("toggleEducation").addEventListener("change", (e) => {
   MapManager.toggleLayer(MapManager.facilityLayers.education, e.target.checked);
   });
@@ -406,19 +391,7 @@
     const checkbox = document.getElementById(id);
     if (!checkbox) return;
 
-    checkbox.addEventListener("change", (e) => {
-      const targetGroup = MapManager.useClustering
-        ? MapManager.facilityLayers[key]
-        : MapManager.facilityLayersPlain[key];
-
-      MapManager.toggleLayer(targetGroup, e.target.checked);
-    });
-
-    const initialGroup = MapManager.useClustering
-      ? MapManager.facilityLayers[key]
-      : MapManager.facilityLayersPlain[key];
-
-    MapManager.toggleLayer(initialGroup, checkbox.checked);
+    MapManager.toggleLayer(MapManager.facilityLayers[key], checkbox.checked);
   });
 </script>
 
