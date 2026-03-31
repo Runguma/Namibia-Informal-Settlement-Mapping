@@ -1,0 +1,51 @@
+.map-card {
+    min-height: 70vh;
+    min-width:155vh;
+  background-color: #f5faff;
+  border-left: 4px solid #00b2e3;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+
+/* Bottom Panel */
+.bottom-panel {
+    display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  left: 23vw; /* ⬅️ Start after sidebar (adjust this to match your sidebar width) */
+  width: calc(100% - 23vw); /* ⬅️ Avoid overlapping sidebar */
+  height: 75vh;
+  background-color: white;
+  box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.15);
+  border-top: 2px solid #00b2e3;
+  border-radius: 8px 8px 0 0; /* Rounded top corners |border-radius: top-left  top-right  bottom-right  bottom-left|*/
+    overflow: auto;
+  transition: transform 0.3s ease;
+  transform: translateY(100%);
+  z-index: 999;
+}
+
+.bottom-panel.visible {
+  display: block;
+  transform: translateY(0%);
+}
+
+.bottom-panel-content {
+  padding: 20px;
+  overflow-y: auto;
+  height: 100%;
+}
+
+.hidden {
+  display: none;
+}

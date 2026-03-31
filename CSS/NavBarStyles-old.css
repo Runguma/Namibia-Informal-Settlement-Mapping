@@ -1,0 +1,756 @@
+/* ==========================================
+   UN-Habitat Dashboard Header Navigation
+   Responsive, Toggleable, Accordion-Friendly, etc
+========================================== */
+
+/* 🔁 Reset */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  overflow: hidden; /* optional */
+}
+
+html, body {
+  height: 100%;
+}
+
+
+body {
+  font-family: "Segoe UI", sans-serif;
+
+}
+
+.leftaligned-text {
+  line-height: 1.6;
+  text-align: left;
+}
+
+/* 🔷 HEADER */
+
+.header {
+  width: 100%;
+  background-color: #f8f8f8;
+  /* #00B2E3;
+  */
+
+  border-bottom: 1px solid #ccc;
+  padding: 10px 20px;
+}
+
+/* 🔹 HEADER STRUCTURE */
+
+.header-left {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.header-logo {
+  display: flex;
+  align-items: center;
+  padding-right: 12px;
+  margin-right: 12px;
+  border-right: 1px solid #ccc;
+}
+
+.header-logo-img {
+  height: 60px;
+  display: block;
+}
+
+.header-title-nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 30px;
+  flex-grow: 1;
+}
+
+.header-title-block {
+  display: flex;
+  align-items: center;
+  padding-right: 12px;
+  margin-right: 12px;
+  border-right: 1px solid #ccc;
+  min-height: 60px;
+}
+
+.header-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #00b2e3;
+}
+
+/* 🔸 NAVIGATION */
+
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.nav-item {
+  position: relative;
+  padding: 8px 14px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  color: #333;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+  border-radius: 3px;
+}
+
+.nav-item:hover {
+  color: #00b2e3;
+}
+
+.nav-item.active {
+  font-weight: 600;
+  color: #007ac2;
+  border-bottom: 2px solid #007ac2;
+}
+
+/* 🔻 DROPDOWN MENU (Desktop) */
+
+.dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  padding: 8px 12px;
+  display: none;
+  min-width: 320px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  z-index: 1000;
+}
+
+.nav-item:hover .dropdown {
+  display: block;
+}
+
+.dropdown a {
+  display: block;
+  padding: 6px 0;
+  font-size: 14px;
+  color: #333;
+  text-decoration: none;
+}
+
+.dropdown a:hover {
+  color: #00b2e3;
+}
+
+/* 🔻 MOBILE: Hamburger Toggle */
+
+.mobile-toggle {
+  display: none;
+  font-size: 26px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #007ac2;
+  margin-left: auto;
+}
+
+/* 🔻 RESPONSIVE (≤768px) */
+
+@media (max-width: 768px) {
+  .header {
+  padding: 10px;
+}
+
+  .header-left {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 15px;
+}
+
+  .header-title-nav {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 15px;
+  width: 100%;
+}
+
+  .header-title-block {
+  border-right: none;
+  padding-right: 0;
+  margin-right: 0;
+}
+
+  .mobile-toggle {
+  display: block;
+}
+
+  .header-nav {
+  display: none;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 10px;
+}
+
+  .header-nav.show-nav {
+  display: flex;
+}
+
+  .nav-item {
+  width: 100%;
+  padding: 10px 8px;
+  border-bottom: 1px solid #ddd;
+  border-radius: 0;
+}
+
+  /* Accordion-like dropdowns */
+
+  .dropdown-item {
+  width: 100%;
+}
+
+  .dropdown-item summary {
+  cursor: pointer;
+  font-weight: 600;
+  padding: 10px 0;
+  list-style: none;
+}
+
+  .dropdown-item summary::-webkit-details-marker {
+  display: none;
+}
+
+  .dropdown-item .dropdown {
+  position: static;
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+  padding-left: 12px;
+  display: block;
+}
+
+  .dropdown-item[open] summary {
+  color: #007ac2;
+}
+
+  .dropdown a {
+  padding: 5px 0;
+}
+}
+
+/* 🔸 Top-right hamburger for toggling sidebar (inside header) */
+
+.sidebar-toggle-header {
+  font-size: 22px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #00B2E3;
+  /*#007ac2;
+  */
+
+  margin-left: auto;
+  padding: 5px 10px;
+}
+
+@media (max-width: 768px) {
+  .sidebar-toggle-header {
+  font-size: 22px;
+}
+}
+
+/* 📱 Responsive adjustments for small/mobile screens */
+
+@media (max-width: 768px) {
+  .header-logo-img {
+  height: 40px;
+}
+
+  .header-title {
+  font-size: 15px;
+  font-weight: 500;
+  color: #007ac2;
+}
+
+  .header-title-block {
+  padding-right: 0;
+  margin-right: 0;
+  border-right: none;
+}
+
+  .header-left {
+  gap: 10px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+  .header-title-nav {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  flex-grow: 1;
+  gap: 10px;
+}
+}
+
+@media (max-width: 768px) {
+  .header-left {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+  /* 🔧 prevents logo and title from stacking */
+
+    width: 100%;
+}
+
+  .header-logo {
+  margin-right: 10px;
+  border-right: none;
+  padding-right: 0;
+}
+
+  .header-logo-img {
+  height: 36px;
+}
+
+  .header-title-nav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  flex-grow: 1;
+  justify-content: space-between;
+}
+
+  .header-title-block {
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+  .header-title {
+  font-size: 14px;
+  white-space: nowrap;
+}
+}
+
+/* End of header styles */
+
+/* Main Container */
+
+/* Root layout */
+
+.main-container {
+  display: flex;
+  height: 100%; /* Full height of viewport */
+  /* adjust if you have a header */
+
+  font-family: "Roboto", sans-serif;
+  transition: all 0.3s ease;
+  overflow-y: hidden;
+  overflow-x: hidden;
+}
+
+/* Sidebar */
+
+.sidebar {
+  min-width: 20vw;
+  max-width: 20vw;
+  background-color: #FFECD6;
+  border-right: #00B2E3 1px solid;
+
+  color: #00B2E3;
+  display: flex;
+  flex-direction: column;
+
+  padding: 0px;
+  transition: width 0.3s ease, transform 0.3s ease;
+  overflow-y: auto; /* Always allow scrolling */
+  overflow-x: hidden;
+
+  /*box-shadow: 8px 8px 8px rgba(196, 196, 196, 0.5);*/
+  height: 100vh; /* Full height of viewport */
+  position: relative;
+}
+
+/* 🖱️ Enable scroll *only* on hover */
+.sidebar:hover {
+  overflow-y: auto;
+}
+
+/* 🧩 WebKit scrollbar custom styles */
+.sidebar::-webkit-scrollbar {
+  width: 10px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+  background: transparent; /* Clean background */
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background-color: #c2c2c2; /* UN-Habitat blue */
+  border-radius: 1px;
+  border: 1px solid #ffffff; /* Matches sidebar background */
+}
+
+/* Optional: Scrollbar corner if both axes scroll */
+.sidebar::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+
+/* Toggle button */
+
+.toggle-btn {
+  background: transparent;
+  border: none;
+  color: #00B2E3;
+  font-size: 24px;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+/* Nav links */
+
+.nav-links a {
+  display: block;
+  color: #00B2E3;
+  font-size: 16px;
+  font-weight: 500;
+  text-decoration: none;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.nav-links a:hover {
+  background-color: White;
+  color: black;
+  padding-left: 8px;
+}
+
+/* Content area */
+
+.main-container {
+  display: flex;
+  height: calc(100vh - 70px); /* accounts for header */
+  width: 100%;
+  overflow: hidden; /* keeps the page clean */
+}
+
+/* Collapsed sidebar */
+
+.sidebar.collapsed {
+  transform: translateX(-100%);
+}
+
+/* Hide link text but keep icons (if any) */
+
+.sidebar.collapsed .nav-links a {
+  font-size: 0;
+  padding: 6px 0;
+  border: none;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+/* Optional: add tooltip effect or icon-only view if you’re using SVGs or icons */
+
+.sidebar.collapsed .toggle-btn {
+  align-self: center;
+}
+
+/* Responsive layout for small screens */
+
+@media (max-width: 800px) {
+  .main-container {
+  flex-direction: column;
+}
+
+  .sidebar {
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+  .content-area {
+  padding: 15px;
+}
+}
+
+@media (max-width: 768px) {
+  .main-container {
+  flex-direction: column;
+}
+
+  .sidebar {
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+}
+
+  .nav-links {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  overflow-x: auto;
+}
+
+  .nav-links a {
+  font-size: 14px;
+  padding: 6px 10px;
+  border-bottom: none;
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+  white-space: nowrap;
+}
+
+  .nav-links a:last-child {
+  border-right: none;
+}
+}
+
+/* End of main container styles */
+
+.accordion {
+  width: 100%;
+}
+
+.accordion-btn {
+  width: 100%;
+  background-color: #FDA947;
+  color: white;
+  font-size:18px;
+  font-weight: 700;
+  letter-spacing: 0.5px; /* mild */
+
+  padding: 12px;
+  text-align: Left;
+  text-decoration: underline;
+  border: 0px solid white;
+  cursor: pointer;
+  border-top: 1px solid #ddd;
+  border-bottom: #a9ddec 1px solid;;
+  transition: background-color 0.2s ease;
+}
+
+.accordion-btn:hover {
+ /* background-color: #00b2e3c7;*/
+ margin-bottom: 0px;
+ 
+  
+}
+
+.accordion-panel {
+  max-height: 0;
+  overflow: hidden;
+  padding: 0 5px;
+  margin: 0 5px;
+  font-size: 14px;
+  font-weight: 300;
+  color: white;
+  background-color: #FFBF7A;
+  letter-spacing: 0.5px; /* mild */
+  transition: max-height 0.1s ease, padding 0.1s ease;
+}
+
+/* Open state */
+.accordion-panel.open {
+  max-height: 5000px; /* large enough to fit full content */
+  padding: 5px;
+  margin: 5px;
+}
+
+.accordion-panelsection-divider {
+  border: none;
+  border-top: 1px solid #ddd;
+  margin: 20px 0;
+  width: 100%;
+}
+
+.accordion-buttonsection-divider {
+  border: none;
+  border-top: 1px solid #ddd;
+  margin: 10px 0;
+  width: 100%;
+}
+
+
+
+
+/* Switch group */
+.switch-group {
+  margin-top: 16px;
+  padding: 5px 5px;
+  padding-top: 10px;
+  background-color: #f2f2f2;
+  border: 0px solid #ddd;
+  color: #fcb712;
+  border-radius: 10px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+
+.switch-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+  font-size: 14px;
+  color: white;
+}
+
+/* Hide default checkbox */
+.switch-item input[type="checkbox"] {
+  display: none;
+}
+
+/* Custom toggle switch */
+.slider {
+  width: 36px;
+  height: 20px;
+  background-color: #ccc;
+  border-radius: 20px;
+  position: relative;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+
+.slider::before {
+  content: "";
+  position: absolute;
+  height: 14px;
+  width: 14px;
+  left: 3px;
+  top: 3px;
+  background-color: white;
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+}
+
+/* When checkbox is checked */
+.switch-item input:checked + .slider {
+  background-color: #2196F3;
+}
+
+.switch-item input:checked + .slider::before {
+  transform: translateX(16px);
+}
+
+.label-text {
+  line-height: 1.4;
+  color:black;
+}
+
+/* Info Icons */
+.info-icon {
+  position: relative;
+  display: inline-block;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #007ac2;
+  cursor: pointer;
+  width: 15px;
+  height: 15px;
+  font-size: 8px;
+  font-weight: bold;
+  background-color: #f0faff; /* soft blue background */
+  border-radius: 50%;
+  border: 0.1px solid #dddddd;
+  margin-left: 6px;
+  cursor: pointer;
+  padding-top: 1px;
+  box-shadow: 0 1px 3px rgba(0, 123, 194, 0.25);
+
+}
+
+.table-tooltip {
+  position: fixed;
+
+  z-index: 2147483647; /* 🚀 Highest layer */
+  display: none;
+  background: white;
+  border: 1px solid #ccc;
+  color:rgb(66, 66, 66);
+  border-radius: 1px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
+  width: 420px;
+  padding: 12px;
+  font-size: 13px;
+}
+
+
+.info-icon:hover .table-tooltip {
+  display: block;
+}
+
+
+
+/* Optional: Style the embedded table */
+.table-tooltip .indicator-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table-tooltip .indicator-table th,
+.table-tooltip .indicator-table td {
+  border: 1px solid #ddd;
+  padding: 6px 10px;
+  text-align: left;
+}
+
+
+/* Style the tabs header */
+#content {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* or fixed like 500px or 100vh */
+}
+
+.content-area {
+  flex-grow: 1;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background-color: #f7f9fa;
+  padding: 30px;
+}
+
+.tab-buttons {
+  margin-top: auto; /* pushes to the bottom */
+  display: flex;
+  gap: 16px;
+  justify-content: left;
+  padding-bottom: 10px;
+}
+.tab-btn {
+  background-color: #00B2E3; /* UN-Habitat blue */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.tab-btn:hover {
+  background-color: #0095c8; /* slightly darker on hover */
+}
+
+
+
+
+

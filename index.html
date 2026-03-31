@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UN-Habitat Dashboard (Proposal)</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
+
+  <!-- ArcGIS JS API styles (optional) -->
+  <link rel="stylesheet" href="https://js.arcgis.com/4.29/esri/themes/light/main.css" />
+
+  <!-- Font Awesome -->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="CSS/NavBarStyles.css" />
+  <link rel="stylesheet" href="CSS/Map_Styles.css" />
+</head>
+
+<body>
+  <!-- HEADER SECTION -->
+  <header class="header">
+    <div class="header-container">
+      <!-- Logo -->
+      <div class="header-logo">
+        <img src="https://habnet.unhabitat.org/sites/default/files/BrandAssets/Logos/Blue%20logo/UN-Habitat%20logo_English.svg" 
+             alt="UN-Habitat Logo" class="header-logo-img">
+      </div>
+
+      <!-- Title & Navigation -->
+      <div class="header-title-nav">
+        <div class="header-title-block">
+          <h1 class="header-title">Urban Indicators Database</h1>
+        </div>
+
+        <!-- Navigation -->
+        <nav class="header-nav" id="mainNav">
+          <div class="nav-item">HOME</div>
+          
+          <div class="nav-item dropdown-item">
+            <span>DATA BY THEME</span>
+            <div class="dropdown">
+              <a href="#">Urban population trends</a>
+              <a href="#">Access to basic services</a>
+              <a href="#">Economic indicators</a>
+              <a href="#">Housing and slums</a>
+              <a href="#">Open spaces</a>
+              <a href="#">Social inclusion</a>
+              <a href="#">Spatial growth</a>
+              <a href="#">Urban environment</a>
+              <a href="#">Urban transport</a>
+            </div>
+          </div>
+
+          <div class="nav-item dropdown-item">
+            <span>RESOURCES</span>
+            <div class="dropdown">
+              <a href="#">Datasets</a>
+              <a href="#">Data Visualizations</a>
+              <a href="#">Publications</a>
+              <a href="#">Guidance</a>
+              <a href="#">Urban Observatories</a>
+              <a href="#">COVID-19</a>
+              <a href="#">Urban Monitoring Framework</a>
+              <a href="#">Capacity Development</a>
+              <a href="#">City Prosperity Index</a>
+              <a href="#">National Sample of Cities</a>
+              <a href="#">Global Public Space Programme</a>
+              <a href="#">News and Data Stories</a>
+            </div>
+          </div>
+
+          <div class="nav-item active">DASHBOARD</div>
+
+          <div class="nav-item dropdown-item">
+            <span>SDGs and NUA</span>
+            <div class="dropdown">
+              <a href="#">SDGs</a>
+              <a href="#">New Urban Agenda (NUA)</a>
+            </div>
+          </div>
+
+          <div class="nav-item">ABOUT</div>
+        </nav>
+      </div>
+
+      <!-- Mobile Toggle Button -->
+      <button class="sidebar-toggle-header" id="sidebarToggle">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT AREA -->
+  <div class="main-container">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <div class="nav-links">
+        <!-- SDG Menu Header -->
+        <button class="accordion-btn no-interact">
+          <img src="https://raw.githubusercontent.com/Runguma/Terrabox_Dashboard/refs/heads/main/Images/SDG_Icons/SDG_Icon_V0Orig.png" alt="SDG Menu Icon">
+          <div class="btn-text">
+            <b>SDG Goal & Indicator Menu</b>
+          </div>
+        </button>
+
+        <!-- Goal 1 Section -->
+        <button class="accordion-btn active" style="background-color: #E5243B;">
+          <div class="subset"><img src="https://raw.githubusercontent.com/Runguma/Terrabox_Dashboard/refs/heads/main/Images/SDG_Icons/SDG_1_V2.png" alt="SDG 1 Icon"></div>
+          <div class="btn-text">
+            <b>Goal 1:</b> End poverty in all its forms everywhere.
+          </div>
+        </button>
+
+        <div class="accordion-panel open">
+          <div class="panel-content">
+            <p class="panel-intro" style="color: #E5243B;">
+              <strong>SDG 1: No Poverty</strong> aims to end poverty in all its forms everywhere.
+            </p>
+
+            <div class="panel-text" style="color: #E5243B;">
+              <p>
+                <strong>Eradicating poverty in all its forms</strong> remains one of the greatest challenges facing humanity.
+                While the number of people living in extreme poverty has dropped by more than half – from 1.9 billion in 1990 to 836 million in 2015 – too many people are still struggling to meet the most basic human needs.
+              </p>
+              <p>
+                Globally, more than <strong>800 million people</strong> are still living on less than $1.25 a day; many lack access to adequate food, clean drinking water and sanitation.
+                Rapid economic growth in countries such as China and India has lifted millions out of poverty, but progress has been uneven.
+                <strong>Women are disproportionately affected</strong>; they are more likely to live in poverty, have less access to economic opportunities, and face barriers to property ownership.
+              </p>
+              <p>
+                Poverty goes beyond lack of income. It includes <em>hunger, malnutrition, limited access to education and basic services, social discrimination, and exclusion</em>.
+                <strong>SDG 1</strong> aims to ensure social protection for the poor and vulnerable, increase access to basic services, and support those harmed by climate-related extreme events and other economic, social, and environmental shocks.
+              </p>
+              <p style="margin-bottom: 10px;">
+                <strong>❖ Target  1.4:</strong> By 2030, ensure that all men and women, in particular the poor and the vulnerable, have equal rights to economic resources,
+                as well as access to basic services, ownership and control over land and other forms of property, inheritance, natural resources, appropriate new
+                technology and financial services, including microfinance.
+              </p>
+            </div>
+
+            <hr class="panel-divider">
+
+            <!-- Indicator 1.4.1 -->
+            <div class="switch-group">
+              <p class="switch-title-1">Indicator 1.4.1: Proportion of population living in households with access to basic services.</p>
+              <hr class="section-divider">
+              <label class="switch-item">
+                <div class="switch">
+                  <input type="checkbox" class="exclusive-toggle" checked>
+                  <span class="slider"></span>
+                </div>
+                <span class="switch-label">SDG Indicator 1.4.1 (Admin Level)</span>
+              </label>
+            </div>
+
+            <!-- Indicator 1.4.2 -->
+            <div class="switch-group">
+              <p class="switch-title-1">Indicator 1.4.2: Proportion of total adult population with secure tenure rights to land, <br>(a) with legally recognized documentation, and <br>(b) who perceive their rights to land as secure, by sex and type of tenure.</p>
+              <hr class="section-divider">
+              <label class="switch-item">
+                <div class="switch">
+                  <input type="checkbox" class="exclusive-toggle">
+                  <span class="slider"></span>
+                </div>
+                <span class="switch-label">SDG Indicator 1.4.2a (Admin Level)</span>
+              </label>
+              <label class="switch-item">
+                <div class="switch">
+                  <input type="checkbox" class="exclusive-toggle">
+                  <span class="slider"></span>
+                </div>
+                <span class="switch-label">SDG Indicator 1.4.2b (Admin Level)</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Goal 11 Section -->
+        <button class="accordion-btn" style="background-color: #FD6925;">
+          <img src="https://raw.githubusercontent.com/Runguma/Terrabox_Dashboard/refs/heads/main/Images/SDG_Icons/SDG_11_V2.png" alt="SDG 11 Icon">
+          <div class="btn-text">
+            <b>Goal 11:</b> Make cities inclusive, safe, resilient and sustainable.
+          </div>
+        </button>
+
+        <div class="accordion-panel">
+          <div class="panel-content">
+            <p class="panel-intro" style="color: #FD6925;">
+              <strong>SDG 11: Sustainable Cities and Communities</strong> aims to make cities inclusive, safe, resilient, and sustainable.
+            </p>
+
+            <div class="panel-text" style="color: #FD6925;">
+              <p>
+              <strong>More than half of humanity</strong>—4.4 billion people—lives in cities today, and that number is expected to increase to 6.7 billion by 2050.
+              Cities are economic powerhouses, generating over 80% of global GDP, but they also face growing challenges related to urban poverty, inadequate housing, traffic congestion, and vulnerability to climate change.
+            </p>
+
+            <p>
+              Urban sprawl, rising air pollution, and under-served informal settlements continue to exacerbate inequality and environmental degradation.
+              <strong>One billion people currently live in slums</strong>—lacking adequate access to water, sanitation, transport, and safety.
+            </p>
+
+            <p>
+              <strong>SDG 11 seeks to promote urban planning, access to affordable housing and transport, green public spaces, and participatory governance</strong>—ensuring that cities grow in a way that is inclusive, safe, adaptive, and environmentally sustainable.
+            </p>
+
+            <p style="margin-bottom: 10px;">
+              <strong>❖ Target  11.1:</strong> By 2030, ensure access for all to adequate, safe and affordable housing and basic services and upgrade slums.
+            </p>
+            </div>
+
+            <hr class="panel-divider">
+
+            <!-- Indicator 11.1.1 -->
+            <div class="switch-group">
+              <p class="switch-title-11">Indicator 11.1.1:  Proportion of urban population living in slums, informal settlements or inadequate housing.</p>
+              <hr class="section-divider">
+              <label class="switch-item">
+                <div class="switch">
+                  <input type="checkbox" class="exclusive-toggle">
+                  <span class="slider"></span>
+                </div>
+                <span class="switch-label">SDG Indicator 11.1.1 (Admin Level)</span>
+              </label>
+            </div>
+
+            <!-- Indicator 11.2.1 -->
+             <hr class="panel-divider">
+             <div class="panel-text" style="color: #FD6925;">
+             <p style="margin-bottom: 10px;">
+              <strong>❖ Target  11.2:</strong> By 2030, provide access to safe, affordable, accessible and sustainable transport systems for all, improving road safety, 
+              notably by expanding public transport, with special attention to the needs of those in vulnerable situations, women, children, persons with disabilities and older persons.
+            </p>
+            </div>
+            <hr class="panel-divider">
+            <div class="switch-group">
+              <p class="switch-title-11">Indicator 11.2.1: Proportion of population that has convenient access to public transport, by sex, age and persons with disabilities.</p>
+              <hr class="section-divider">
+              <label class="switch-item">
+                <div class="switch">
+                  <input type="checkbox" class="exclusive-toggle">
+                  <span class="slider"></span>
+                </div>
+                <span class="switch-label">SDG Indicator 11.2.1 (Admin Level)</span>
+              </label>
+            </div>
+
+            <!-- Indicator 11.3.1 -->
+             <hr class="panel-divider">
+             <div class="panel-text" style="color: #FD6925;">
+             <p style="margin-bottom: 10px;">
+              <strong>❖ Target  11.3:</strong> By 2030, enhance inclusive and sustainable urbanization and capacity for participatory, integrated and sustainable human settlement planning and management in all countries.
+            </p>
+            </div>
+            <hr class="panel-divider">
+            <div class="switch-group">
+              <p class="switch-title-11">Indicator 11.3.1: Ratio of land consumption rate to population growth rate.</p>
+              <hr class="section-divider">
+              <label class="switch-item">
+                <div class="switch">
+                  <input type="checkbox" class="exclusive-toggle">
+                  <span class="slider"></span>
+                </div>
+                <span class="switch-label">SDG Indicator 11.3.1 (Admin Level)</span>
+              </label>
+            </div>
+
+            <!-- Indicator 11.3.2 -->
+            <div class="switch-group">
+              <p class="switch-title-11">Indicator 11.3.2: Proportion of cities with a direct participation structure of civil society in urban planning and management that operate regularly and democratically.</p>
+              <hr class="section-divider">
+              <label class="switch-item">
+                <div class="switch">
+                  <input type="checkbox" class="exclusive-toggle">
+                  <span class="slider"></span>
+                </div>
+                <span class="switch-label">SDG Indicator 11.3.2 (Admin Level)</span>
+              </label>
+            </div>
+
+            <!-- Indicator 11.6.1 -->
+             <hr class="panel-divider">
+             <div class="panel-text" style="color: #FD6925;">
+             <p style="margin-bottom: 10px;">
+              <strong>❖ Target  11.6:</strong> By 2030, reduce the adverse per capita environmental impact of cities, including by paying special attention to air quality and municipal and other waste management.
+            </p>
+            </div>
+            <hr class="panel-divider">
+            <div class="switch-group">
+              <p class="switch-title-11">Indicator 11.6.1: Proportion of municipal solid waste collected and managed in controlled facilities out of total municipal waste generated, by cities.</p>
+              <hr class="section-divider">
+              <label class="switch-item">
+                <div class="switch">
+                  <input type="checkbox" class="exclusive-toggle">
+                  <span class="slider"></span>
+                </div>
+                <span class="switch-label">SDG Indicator 11.6.1 (Admin Level)</span>
+              </label>
+            </div>
+
+            <!-- Indicator 11.7.1 -->
+             <hr class="panel-divider">
+             <div class="panel-text" style="color: #FD6925;">
+             <p style="margin-bottom: 10px;">
+              <strong>❖ Target  11.7:</strong> By 2030, provide universal access to safe, inclusive and accessible, green and public spaces, in particular for women and children, older persons and persons with disabilities.
+            </p>
+            </div>
+            <hr class="panel-divider">
+            <div class="switch-group">
+              <p class="switch-title-11">Indicator 11.7.1: Average share of the built-up area of cities that is open space for public use for all, by sex, age and persons with disabilities.</p>
+              <hr class="section-divider">
+              <label class="switch-item">
+                <div class="switch">
+                  <input type="checkbox" class="exclusive-toggle">
+                  <span class="slider"></span>
+                </div>
+                <span class="switch-label">SDG Indicator 11.7.1 (Admin Level)</span>
+              </label>
+            </div>
+
+            <!-- Indicator 11.a.1 -->
+             <hr class="panel-divider">
+             <div class="panel-text" style="color: #FD6925;">
+             <p style="margin-bottom: 10px;">
+              <strong>❖ Target  11.a:</strong> Support positive economic, social and environmental links between urban, peri-urban and rural areas by strengthening national and regional development planning.
+            </p>
+            </div>
+            <hr class="panel-divider">
+            <div class="switch-group">
+              <p class="switch-title-11">Indicator 11.a.1: Number of countries that have national urban policies or regional development plans that: <br>(a) respond to population dynamics; <br>(b) ensure balanced territorial development<br>(c) increase local fiscal space.</p>
+              <hr class="section-divider">
+              <label class="switch-item">
+                <div class="switch">
+                  <input type="checkbox" class="exclusive-toggle">
+                  <span class="slider"></span>
+                </div>
+                <span class="switch-label">SDG Indicator 11.a.1a (Admin Level)</span>
+              </label>
+              <label class="switch-item">
+                <div class="switch">
+                  <input type="checkbox" class="exclusive-toggle">
+                  <span class="slider"></span>
+                </div>
+                <span class="switch-label">SDG Indicator 11.a.1b (Admin Level)</span>
+              </label>
+              <label class="switch-item">
+                <div class="switch">
+                  <input type="checkbox" class="exclusive-toggle">
+                  <span class="slider"></span>
+                </div>
+                <span class="switch-label">SDG Indicator 11.a.1c (Admin Level)</span>
+              </label>
+            </div>
+
+            <!-- Indicator 11.c.1 -->
+             <hr class="panel-divider">
+             <div class="panel-text" style="color: #FD6925;">
+             <p style="margin-bottom: 10px;">
+              <strong>❖ Target  11.c:</strong>  Support least developed countries, including through financial and technical assistance, in building sustainable and resilient buildings utilizing local materials.
+            </p>
+            </div>
+            <hr class="panel-divider">
+            <div class="switch-group">
+              <p class="switch-title-11">Indicator 11.c.1: Total official development assistance and other official flows in support of urban infrastructure or urban infrastructure projects, by sector.<br>(2025 Comprehensive Review additional indicator)</p>
+              <hr class="section-divider">
+              <label class="switch-item">
+                <div class="switch">
+                  <input type="checkbox" class="exclusive-toggle">
+                  <span class="slider"></span>
+                </div>
+                <span class="switch-label">SDG Indicator 11.c.1 (Admin Level)</span>
+              </label>
+    
+            </div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="content-area" id="content">
+      <h2>Urban Indicator Dashboard</h2>
+
+      <!-- 🧩 Message only when nothing is selected -->
+      <p id="default-message" style="margin-bottom: 20px;">
+        Select an item from the side panel to begin.
+      </p>
+
+      <!-- 🧩 Dynamic Map Cards Appear Here -->
+      <div id="indicator-map-area" style="margin-bottom: 30px;"></div>
+      <!-- Bottom Sliding Panel -->
+      <div id="bottom-panel" class="bottom-panel">
+        <div class="bottom-panel-content" id="bottom-panel-content">
+          <!-- Chart or Table Content Goes Here -->
+        </div>
+      </div>
+
+
+      <!-- 📊 Tab Buttons Go at the Bottom -->
+      <div class="tab-buttons">
+        <button class="tab-btn">Charts</button>
+        <button class="tab-btn">Tables</button>
+      </div>
+    </main>
+
+
+  </div>
+
+  <!-- JavaScript -->
+  <script src="JS/NavToggle.js"></script>
+  <script src="JS/Main_Content.js"></script>
+</body>
+</html>
