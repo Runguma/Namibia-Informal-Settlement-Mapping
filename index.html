@@ -1,417 +1,449 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>UN-Habitat Dashboard (Proposal)</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Namibia Informal Settlements & Facilities Mapping</title>
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
+  <!-- Leaflet core -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
-  <!-- ArcGIS JS API styles (optional) -->
-  <link rel="stylesheet" href="https://js.arcgis.com/4.29/esri/themes/light/main.css" />
+  <!-- Leaflet MarkerCluster -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" />
+  <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+
 
   <!-- Font Awesome -->
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 
-
-  <!-- Custom Styles -->
-  <link rel="stylesheet" href="CSS/NavBarStyles.css" />
-  <link rel="stylesheet" href="CSS/Map_Styles.css" />
+  <!-- Your CSS (correct path) -->
+  <link rel="stylesheet" href="css/style.css" />
 </head>
-
 <body>
-  <!-- HEADER SECTION -->
-  <header class="header">
-    <div class="header-container">
-      <!-- Logo -->
-      <div class="header-logo">
-        <img src="https://habnet.unhabitat.org/sites/default/files/BrandAssets/Logos/Blue%20logo/UN-Habitat%20logo_English.svg" 
-             alt="UN-Habitat Logo" class="header-logo-img">
-      </div>
 
-      <!-- Title & Navigation -->
-      <div class="header-title-nav">
-        <div class="header-title-block">
-          <h1 class="header-title">Urban Indicators Database</h1>
-        </div>
-
-        <!-- Navigation -->
-        <nav class="header-nav" id="mainNav">
-          <div class="nav-item">HOME</div>
-          
-          <div class="nav-item dropdown-item">
-            <span>DATA BY THEME</span>
-            <div class="dropdown">
-              <a href="#">Urban population trends</a>
-              <a href="#">Access to basic services</a>
-              <a href="#">Economic indicators</a>
-              <a href="#">Housing and slums</a>
-              <a href="#">Open spaces</a>
-              <a href="#">Social inclusion</a>
-              <a href="#">Spatial growth</a>
-              <a href="#">Urban environment</a>
-              <a href="#">Urban transport</a>
-            </div>
-          </div>
-
-          <div class="nav-item dropdown-item">
-            <span>RESOURCES</span>
-            <div class="dropdown">
-              <a href="#">Datasets</a>
-              <a href="#">Data Visualizations</a>
-              <a href="#">Publications</a>
-              <a href="#">Guidance</a>
-              <a href="#">Urban Observatories</a>
-              <a href="#">COVID-19</a>
-              <a href="#">Urban Monitoring Framework</a>
-              <a href="#">Capacity Development</a>
-              <a href="#">City Prosperity Index</a>
-              <a href="#">National Sample of Cities</a>
-              <a href="#">Global Public Space Programme</a>
-              <a href="#">News and Data Stories</a>
-            </div>
-          </div>
-
-          <div class="nav-item active">DASHBOARD</div>
-
-          <div class="nav-item dropdown-item">
-            <span>SDGs and NUA</span>
-            <div class="dropdown">
-              <a href="#">SDGs</a>
-              <a href="#">New Urban Agenda (NUA)</a>
-            </div>
-          </div>
-
-          <div class="nav-item">ABOUT</div>
-        </nav>
-      </div>
-
-      <!-- Mobile Toggle Button -->
-      <button class="sidebar-toggle-header" id="sidebarToggle">
-        <i class="fas fa-bars"></i>
-      </button>
+<div class="topbar">
+  <div class="brand">
+    <!-- Fixed logo path -->
+    <img src="https://habnet.unhabitat.org/sites/default/files/BrandAssets/Logos/Blue%20logo/UN-Habitat%20logo_English.svg" alt="UN-Habitat Logo" class="brand-logo">
+    <div>
+      <div class="brand-name">Namibia Informal Settlements</div>
+      <div class="brand-subtitle">Facilities & Infrastructure Mapping</div>
     </div>
-  </header>
-
-  <!-- MAIN CONTENT AREA -->
-  <div class="main-container">
-    <!-- Sidebar -->
-    <aside class="sidebar" id="sidebar">
-      <div class="nav-links">
-        <!-- SDG Menu Header -->
-        <button class="accordion-btn no-interact">
-          <img src="https://raw.githubusercontent.com/Runguma/Terrabox_Dashboard/refs/heads/main/Images/SDG_Icons/SDG_Icon_V0Orig.png" alt="SDG Menu Icon">
-          <div class="btn-text">
-            <b>SDG Goal & Indicator Menu</b>
-          </div>
-        </button>
-
-        <!-- Goal 1 Section -->
-        <button class="accordion-btn active" style="background-color: #E5243B;">
-          <div class="subset"><img src="https://raw.githubusercontent.com/Runguma/Terrabox_Dashboard/refs/heads/main/Images/SDG_Icons/SDG_1_V2.png" alt="SDG 1 Icon"></div>
-          <div class="btn-text">
-            <b>Goal 1:</b> End poverty in all its forms everywhere.
-          </div>
-        </button>
-
-        <div class="accordion-panel open">
-          <div class="panel-content">
-            <p class="panel-intro" style="color: #E5243B;">
-              <strong>SDG 1: No Poverty</strong> aims to end poverty in all its forms everywhere.
-            </p>
-
-            <div class="panel-text" style="color: #E5243B;">
-              <p>
-                <strong>Eradicating poverty in all its forms</strong> remains one of the greatest challenges facing humanity.
-                While the number of people living in extreme poverty has dropped by more than half – from 1.9 billion in 1990 to 836 million in 2015 – too many people are still struggling to meet the most basic human needs.
-              </p>
-              <p>
-                Globally, more than <strong>800 million people</strong> are still living on less than $1.25 a day; many lack access to adequate food, clean drinking water and sanitation.
-                Rapid economic growth in countries such as China and India has lifted millions out of poverty, but progress has been uneven.
-                <strong>Women are disproportionately affected</strong>; they are more likely to live in poverty, have less access to economic opportunities, and face barriers to property ownership.
-              </p>
-              <p>
-                Poverty goes beyond lack of income. It includes <em>hunger, malnutrition, limited access to education and basic services, social discrimination, and exclusion</em>.
-                <strong>SDG 1</strong> aims to ensure social protection for the poor and vulnerable, increase access to basic services, and support those harmed by climate-related extreme events and other economic, social, and environmental shocks.
-              </p>
-              <p style="margin-bottom: 10px;">
-                <strong>❖ Target  1.4:</strong> By 2030, ensure that all men and women, in particular the poor and the vulnerable, have equal rights to economic resources,
-                as well as access to basic services, ownership and control over land and other forms of property, inheritance, natural resources, appropriate new
-                technology and financial services, including microfinance.
-              </p>
-            </div>
-
-            <hr class="panel-divider">
-
-            <!-- Indicator 1.4.1 -->
-            <div class="switch-group">
-              <p class="switch-title-1">Indicator 1.4.1: Proportion of population living in households with access to basic services.</p>
-              <hr class="section-divider">
-              <label class="switch-item">
-                <div class="switch">
-                  <input type="checkbox" class="exclusive-toggle" checked>
-                  <span class="slider"></span>
-                </div>
-                <span class="switch-label">SDG Indicator 1.4.1 (Admin Level)</span>
-              </label>
-            </div>
-
-            <!-- Indicator 1.4.2 -->
-            <div class="switch-group">
-              <p class="switch-title-1">Indicator 1.4.2: Proportion of total adult population with secure tenure rights to land, <br>(a) with legally recognized documentation, and <br>(b) who perceive their rights to land as secure, by sex and type of tenure.</p>
-              <hr class="section-divider">
-              <label class="switch-item">
-                <div class="switch">
-                  <input type="checkbox" class="exclusive-toggle">
-                  <span class="slider"></span>
-                </div>
-                <span class="switch-label">SDG Indicator 1.4.2a (Admin Level)</span>
-              </label>
-              <label class="switch-item">
-                <div class="switch">
-                  <input type="checkbox" class="exclusive-toggle">
-                  <span class="slider"></span>
-                </div>
-                <span class="switch-label">SDG Indicator 1.4.2b (Admin Level)</span>
-              </label>
-            </div>
-          </div>
-        </div>
-
-        <!-- Goal 11 Section -->
-        <button class="accordion-btn" style="background-color: #FD6925;">
-          <img src="https://raw.githubusercontent.com/Runguma/Terrabox_Dashboard/refs/heads/main/Images/SDG_Icons/SDG_11_V2.png" alt="SDG 11 Icon">
-          <div class="btn-text">
-            <b>Goal 11:</b> Make cities inclusive, safe, resilient and sustainable.
-          </div>
-        </button>
-
-        <div class="accordion-panel">
-          <div class="panel-content">
-            <p class="panel-intro" style="color: #FD6925;">
-              <strong>SDG 11: Sustainable Cities and Communities</strong> aims to make cities inclusive, safe, resilient, and sustainable.
-            </p>
-
-            <div class="panel-text" style="color: #FD6925;">
-              <p>
-              <strong>More than half of humanity</strong>—4.4 billion people—lives in cities today, and that number is expected to increase to 6.7 billion by 2050.
-              Cities are economic powerhouses, generating over 80% of global GDP, but they also face growing challenges related to urban poverty, inadequate housing, traffic congestion, and vulnerability to climate change.
-            </p>
-
-            <p>
-              Urban sprawl, rising air pollution, and under-served informal settlements continue to exacerbate inequality and environmental degradation.
-              <strong>One billion people currently live in slums</strong>—lacking adequate access to water, sanitation, transport, and safety.
-            </p>
-
-            <p>
-              <strong>SDG 11 seeks to promote urban planning, access to affordable housing and transport, green public spaces, and participatory governance</strong>—ensuring that cities grow in a way that is inclusive, safe, adaptive, and environmentally sustainable.
-            </p>
-
-            <p style="margin-bottom: 10px;">
-              <strong>❖ Target  11.1:</strong> By 2030, ensure access for all to adequate, safe and affordable housing and basic services and upgrade slums.
-            </p>
-            </div>
-
-            <hr class="panel-divider">
-
-            <!-- Indicator 11.1.1 -->
-            <div class="switch-group">
-              <p class="switch-title-11">Indicator 11.1.1:  Proportion of urban population living in slums, informal settlements or inadequate housing.</p>
-              <hr class="section-divider">
-              <label class="switch-item">
-                <div class="switch">
-                  <input type="checkbox" class="exclusive-toggle">
-                  <span class="slider"></span>
-                </div>
-                <span class="switch-label">SDG Indicator 11.1.1 (Admin Level)</span>
-              </label>
-            </div>
-
-            <!-- Indicator 11.2.1 -->
-             <hr class="panel-divider">
-             <div class="panel-text" style="color: #FD6925;">
-             <p style="margin-bottom: 10px;">
-              <strong>❖ Target  11.2:</strong> By 2030, provide access to safe, affordable, accessible and sustainable transport systems for all, improving road safety, 
-              notably by expanding public transport, with special attention to the needs of those in vulnerable situations, women, children, persons with disabilities and older persons.
-            </p>
-            </div>
-            <hr class="panel-divider">
-            <div class="switch-group">
-              <p class="switch-title-11">Indicator 11.2.1: Proportion of population that has convenient access to public transport, by sex, age and persons with disabilities.</p>
-              <hr class="section-divider">
-              <label class="switch-item">
-                <div class="switch">
-                  <input type="checkbox" class="exclusive-toggle">
-                  <span class="slider"></span>
-                </div>
-                <span class="switch-label">SDG Indicator 11.2.1 (Admin Level)</span>
-              </label>
-            </div>
-
-            <!-- Indicator 11.3.1 -->
-             <hr class="panel-divider">
-             <div class="panel-text" style="color: #FD6925;">
-             <p style="margin-bottom: 10px;">
-              <strong>❖ Target  11.3:</strong> By 2030, enhance inclusive and sustainable urbanization and capacity for participatory, integrated and sustainable human settlement planning and management in all countries.
-            </p>
-            </div>
-            <hr class="panel-divider">
-            <div class="switch-group">
-              <p class="switch-title-11">Indicator 11.3.1: Ratio of land consumption rate to population growth rate.</p>
-              <hr class="section-divider">
-              <label class="switch-item">
-                <div class="switch">
-                  <input type="checkbox" class="exclusive-toggle">
-                  <span class="slider"></span>
-                </div>
-                <span class="switch-label">SDG Indicator 11.3.1 (Admin Level)</span>
-              </label>
-            </div>
-
-            <!-- Indicator 11.3.2 -->
-            <div class="switch-group">
-              <p class="switch-title-11">Indicator 11.3.2: Proportion of cities with a direct participation structure of civil society in urban planning and management that operate regularly and democratically.</p>
-              <hr class="section-divider">
-              <label class="switch-item">
-                <div class="switch">
-                  <input type="checkbox" class="exclusive-toggle">
-                  <span class="slider"></span>
-                </div>
-                <span class="switch-label">SDG Indicator 11.3.2 (Admin Level)</span>
-              </label>
-            </div>
-
-            <!-- Indicator 11.6.1 -->
-             <hr class="panel-divider">
-             <div class="panel-text" style="color: #FD6925;">
-             <p style="margin-bottom: 10px;">
-              <strong>❖ Target  11.6:</strong> By 2030, reduce the adverse per capita environmental impact of cities, including by paying special attention to air quality and municipal and other waste management.
-            </p>
-            </div>
-            <hr class="panel-divider">
-            <div class="switch-group">
-              <p class="switch-title-11">Indicator 11.6.1: Proportion of municipal solid waste collected and managed in controlled facilities out of total municipal waste generated, by cities.</p>
-              <hr class="section-divider">
-              <label class="switch-item">
-                <div class="switch">
-                  <input type="checkbox" class="exclusive-toggle">
-                  <span class="slider"></span>
-                </div>
-                <span class="switch-label">SDG Indicator 11.6.1 (Admin Level)</span>
-              </label>
-            </div>
-
-            <!-- Indicator 11.7.1 -->
-             <hr class="panel-divider">
-             <div class="panel-text" style="color: #FD6925;">
-             <p style="margin-bottom: 10px;">
-              <strong>❖ Target  11.7:</strong> By 2030, provide universal access to safe, inclusive and accessible, green and public spaces, in particular for women and children, older persons and persons with disabilities.
-            </p>
-            </div>
-            <hr class="panel-divider">
-            <div class="switch-group">
-              <p class="switch-title-11">Indicator 11.7.1: Average share of the built-up area of cities that is open space for public use for all, by sex, age and persons with disabilities.</p>
-              <hr class="section-divider">
-              <label class="switch-item">
-                <div class="switch">
-                  <input type="checkbox" class="exclusive-toggle">
-                  <span class="slider"></span>
-                </div>
-                <span class="switch-label">SDG Indicator 11.7.1 (Admin Level)</span>
-              </label>
-            </div>
-
-            <!-- Indicator 11.a.1 -->
-             <hr class="panel-divider">
-             <div class="panel-text" style="color: #FD6925;">
-             <p style="margin-bottom: 10px;">
-              <strong>❖ Target  11.a:</strong> Support positive economic, social and environmental links between urban, peri-urban and rural areas by strengthening national and regional development planning.
-            </p>
-            </div>
-            <hr class="panel-divider">
-            <div class="switch-group">
-              <p class="switch-title-11">Indicator 11.a.1: Number of countries that have national urban policies or regional development plans that: <br>(a) respond to population dynamics; <br>(b) ensure balanced territorial development<br>(c) increase local fiscal space.</p>
-              <hr class="section-divider">
-              <label class="switch-item">
-                <div class="switch">
-                  <input type="checkbox" class="exclusive-toggle">
-                  <span class="slider"></span>
-                </div>
-                <span class="switch-label">SDG Indicator 11.a.1a (Admin Level)</span>
-              </label>
-              <label class="switch-item">
-                <div class="switch">
-                  <input type="checkbox" class="exclusive-toggle">
-                  <span class="slider"></span>
-                </div>
-                <span class="switch-label">SDG Indicator 11.a.1b (Admin Level)</span>
-              </label>
-              <label class="switch-item">
-                <div class="switch">
-                  <input type="checkbox" class="exclusive-toggle">
-                  <span class="slider"></span>
-                </div>
-                <span class="switch-label">SDG Indicator 11.a.1c (Admin Level)</span>
-              </label>
-            </div>
-
-            <!-- Indicator 11.c.1 -->
-             <hr class="panel-divider">
-             <div class="panel-text" style="color: #FD6925;">
-             <p style="margin-bottom: 10px;">
-              <strong>❖ Target  11.c:</strong>  Support least developed countries, including through financial and technical assistance, in building sustainable and resilient buildings utilizing local materials.
-            </p>
-            </div>
-            <hr class="panel-divider">
-            <div class="switch-group">
-              <p class="switch-title-11">Indicator 11.c.1: Total official development assistance and other official flows in support of urban infrastructure or urban infrastructure projects, by sector.<br>(2025 Comprehensive Review additional indicator)</p>
-              <hr class="section-divider">
-              <label class="switch-item">
-                <div class="switch">
-                  <input type="checkbox" class="exclusive-toggle">
-                  <span class="slider"></span>
-                </div>
-                <span class="switch-label">SDG Indicator 11.c.1 (Admin Level)</span>
-              </label>
-    
-            </div>
-          </div>
-        </div>
-      </div>
-    </aside>
-
-    <!-- Main Content -->
-    <main class="content-area" id="content">
-      <h2>Urban Indicator Dashboard</h2>
-
-      <!-- 🧩 Message only when nothing is selected -->
-      <p id="default-message" style="margin-bottom: 20px;">
-        Select an item from the side panel to begin.
-      </p>
-
-      <!-- 🧩 Dynamic Map Cards Appear Here -->
-      <div id="indicator-map-area" style="margin-bottom: 30px;"></div>
-      <!-- Bottom Sliding Panel -->
-      <div id="bottom-panel" class="bottom-panel">
-        <div class="bottom-panel-content" id="bottom-panel-content">
-          <!-- Chart or Table Content Goes Here -->
-        </div>
-      </div>
+  </div>
+</div>
 
 
-      <!-- 📊 Tab Buttons Go at the Bottom -->
-      <div class="tab-buttons">
-        <button class="tab-btn">Charts</button>
-        <button class="tab-btn">Tables</button>
-      </div>
-    </main>
 
-
+<div class="page">
+  <!-- Sidebar with filters -->
+  <div class="sidebar">
+    <div class="panel">
+      <label>🏘️ Town / Settlement</label>
+      <select id="townFilter" class="dropdown">
+        <option value="">All Towns</option>
+      </select>
+    </div>
+    <div class="panel">
+      <label>🏥 Facility Type</label>
+      <select id="facilityFilter" class="dropdown">
+        <option value="">All</option>
+      </select>
+    </div>
+    <div class="panel">
+      <label>📊 Condition</label>
+      <select id="conditionFilter" class="dropdown">
+        <option value="">All</option>
+      </select>
+    </div>
+    <div class="panel">
+      <p><small>Click on markers for details.<br>Clusters show number of facilities.</small></p>
+    </div>
   </div>
 
-  <!-- JavaScript -->
-  <script src="JS/NavToggle.js"></script>
-  <script src="JS/Main_Content.js"></script>
+  <!-- Map container -->
+  <div class="map-section">
+    <div id="map"></div>
+
+    <div class="layer-panel" id="layerPanel">
+  <button class="layer-panel-toggle" id="layerPanelToggle" type="button">
+    <span><u>Layers</u></span>
+    <span class="layer-chevron" id="layerChevron">▴</span>
+  </button>
+
+  <div class="layer-panel-body" id="layerPanelBody">
+    <div class="layer-group">
+
+      <div class="layer-group-title"><u>Basemaps</u></div>
+
+      <label><input type="radio" name="basemap" value="voyager" checked> Carto Voyager</label>
+      <label><input type="radio" name="basemap" value="light"> Carto Light</label>
+      <label><input type="radio" name="basemap" value="osm"> OpenStreetMap</label>
+      <label><input type="radio" name="basemap" value="esriSat"> Esri Satellite</label>
+      <label><input type="radio" name="basemap" value="esriHybrid"> Esri Hybrid</label>
+      <label><input type="radio" name="basemap" value="esriStreets"> Esri Streets</label>
+      <label><input type="radio" name="basemap" value="esriTopo"> Esri Topographic</label>
+    </div></div>
+
+    <div class="layer-panel-body" id="layerPanelBody">
+
+    <div class="layer-group">
+      <div class="layer-group-title"><u>Boundary Layers</u></div>
+
+      <label>
+        <input type="checkbox" id="toggleNational" checked>
+        <span class="layer-label-text">National Boundary</span>
+        <span class="layer-line-preview national-line"></span>
+      </label>
+
+      <label>
+        <input type="checkbox" id="toggleBoundary" checked>
+        <span class="layer-label-text">Regional Boundary</span>
+        <span class="layer-line-preview boundary-line"></span>
+      </label>
+
+      <label>
+        <input type="checkbox" id="toggleSubboundary" checked>
+        <span class="layer-label-text">Subboundary</span>
+        <span class="layer-line-preview subboundary-line"></span>
+      </label>
+      </div></div>
+
+      <div class="layer-panel-body" id="layerPanelBody">
+      <div class="layer-group">
+        <div class="layer-group-title"><u>Condition</u></div>
+
+        <div class="condition-legend">
+          <div class="condition-item">
+            <span class="dot good"></span> Good
+          </div>
+          <div class="condition-item">
+            <span class="dot average"></span> Average
+          </div>
+          <div class="condition-item">
+            <span class="dot poor"></span> Poor
+          </div>
+          <div class="condition-item">
+            <span class="dot unknown"></span> Unknown
+          </div>
+        </div>
+      </div></div>
+
+      <div class="layer-panel-body" id="layerPanelBody">
+      <div class="layer-group-title"><u>Facility Layers</u></div>
+      <label>
+        <input type="checkbox" id="toggleAdministration">
+        <span class="layer-label-text" checked>Administration</span>
+        <span class="layer-symbol marker-preview administration"><i class="fa-solid fa-building"></i></span>
+      </label>
+
+      <label>
+        <input type="checkbox" id="toggleSanitation">
+        <span class="layer-label-text">Sanitation</span>
+        <span class="layer-symbol marker-preview sanitation"><i class="fa-solid fa-toilet"></i></span>
+      </label>
+
+      <label>
+        <input type="checkbox" id="toggleWater">
+        <span class="layer-label-text">Water</span>
+        <span class="layer-symbol marker-preview water"><i class="fa-solid fa-droplet"></i></span>
+      </label>
+
+      <label>
+        <input type="checkbox" id="toggleEducation">
+        <span class="layer-label-text">Education</span>
+        <span class="layer-symbol marker-preview education"><i class="fa-solid fa-school"></i></span>
+      </label>
+
+      <label>
+        <input type="checkbox" id="toggleHealth">
+        <span class="layer-label-text">Health</span>
+        <span class="layer-symbol marker-preview health"><i class="fa-solid fa-hospital"></i></span>
+      </label>
+
+      <label>
+        <input type="checkbox" id="toggleLandmark">
+        <span class="layer-label-text">Landmark</span>
+        <span class="layer-symbol marker-preview landmark"><i class="fa-solid fa-location-dot"></i></span>
+      </label>
+
+      <label>
+        <input type="checkbox" id="toggleLighting">
+        <span class="layer-label-text">Lighting</span>
+        <span class="layer-symbol marker-preview lighting"><i class="fa-solid fa-lightbulb"></i></span>
+      </label>
+
+      <label>
+        <input type="checkbox" id="toggleMarket">
+        <span class="layer-label-text">Market</span>
+        <span class="layer-symbol marker-preview market"><i class="fa-solid fa-store"></i></span>
+      </label>
+
+      <label>
+        <input type="checkbox" id="toggleSocialCare">
+        <span class="layer-label-text">Social Care</span>
+        <span class="layer-symbol marker-preview socialcare"><i class="fa-solid fa-people-group"></i></span>
+      </label>
+
+      <label>
+        <input type="checkbox" id="togglePublicSpace">
+        <span class="layer-label-text">Public Space</span>
+        <span class="layer-symbol marker-preview publicspace"><i class="fa-solid fa-tree"></i></span>
+      </label>
+
+      <label>
+        <input type="checkbox" id="toggleTransport">
+        <span class="layer-label-text">Transport</span>
+        <span class="layer-symbol marker-preview transport"><i class="fa-solid fa-bus"></i></span>
+      </label>
+
+      <label>
+        <input type="checkbox" id="toggleReligious">
+        <span class="layer-label-text">Religious</span>
+        <span class="layer-symbol marker-preview religious"><i class="fa-solid fa-church"></i></span>
+      </label>
+
+      <label>
+        <input type="checkbox" id="toggleWaste">
+        <span class="layer-label-text">Waste</span>
+        <span class="layer-symbol marker-preview waste"><i class="fa-solid fa-trash"></i></span>
+      </label>
+
+      <label>
+        <input type="checkbox" id="toggleOtherFacilities">
+        <span class="layer-label-text">Other</span>
+        <span class="layer-symbol marker-preview other"><i class="fa-solid fa-circle-dot"></i></span>
+      </label>
+      </div>
+
+
+  
+      
+
+
+  </div></div>
+
+  <!--  Drawer panel --->
+  <div class="map-bottom-toggle">
+    <button class="map-toggle-btn" id="btnCharts" type="button">Charts</button>
+    <button class="map-toggle-btn" id="btnTables" type="button">Tables</button>
+  </div>
+
+  <div class="bottom-drawer" id="bottomDrawer">
+    <div class="bottom-drawer-handle"></div>
+
+    <div class="bottom-drawer-content">
+      <div class="drawer-panel" id="chartsPanel">
+        <h3>Charts</h3>
+        <p>Chart content goes here.</p>
+      </div>
+
+      <div class="drawer-panel" id="tablesPanel">
+        <h3>Tables</h3>
+        <p>Table content goes here.</p>
+      </div>
+    </div>
+  </div>
+
+</div></div></div>
+
+<div class="footer">
+  <div class="footer-inner">
+    <div class="footer-left">© 2025 DAU-Proj</div>
+    <div class="footer-center">Data: Field survey & OSM</div>
+    <div class="footer-right">
+      <a href="#">About</a> | <a href="#">GitHub</a>
+    </div>
+  </div>
+  <div class="footer-disclaimer">Preliminary map – for planning purposes only.</div>
+</div>
+
+<script src="js/app.js"></script>
+
+
+<script>
+  const layerPanel = document.getElementById("layerPanel");
+  const layerPanelToggle = document.getElementById("layerPanelToggle");
+
+  layerPanelToggle.addEventListener("click", () => {
+    layerPanel.classList.toggle("collapsed");
+  });
+
+  document.querySelectorAll('input[name="basemap"]').forEach(input => {
+    input.addEventListener("change", (e) => {
+      MapManager.setBaseLayer(e.target.value);
+    });
+  });
+
+  document.getElementById("toggleBoundary").addEventListener("change", (e) => {
+    MapManager.toggleLayer(MapManager.boundaryLayer, e.target.checked);
+  });
+
+  document.getElementById("toggleSubboundary").addEventListener("change", (e) => {
+    MapManager.toggleLayer(MapManager.subboundaryLayer, e.target.checked);
+  });
+
+  document.getElementById("toggleEducation").addEventListener("change", (e) => {
+  MapManager.toggleLayer(MapManager.facilityLayers.education, e.target.checked);
+  });
+
+  document.getElementById("toggleHealth").addEventListener("change", (e) => {
+    MapManager.toggleLayer(MapManager.facilityLayers.health, e.target.checked);
+  });
+
+  document.getElementById("toggleWater").addEventListener("change", (e) => {
+    MapManager.toggleLayer(MapManager.facilityLayers.water, e.target.checked);
+  });
+
+  document.getElementById("toggleTransport").addEventListener("change", (e) => {
+    MapManager.toggleLayer(MapManager.facilityLayers.transport, e.target.checked);
+  });
+
+  document.getElementById("toggleReligious").addEventListener("change", (e) => {
+    MapManager.toggleLayer(MapManager.facilityLayers.religious, e.target.checked);
+  });
+
+  document.getElementById("toggleWaste").addEventListener("change", (e) => {
+    MapManager.toggleLayer(MapManager.facilityLayers.waste, e.target.checked);
+  });
+
+  document.getElementById("toggleOtherFacilities").addEventListener("change", (e) => {
+    MapManager.toggleLayer(MapManager.facilityLayers.other, e.target.checked);
+  });
+
+  document.getElementById("toggleAdministration").addEventListener("change", (e) => {
+    MapManager.toggleLayer(MapManager.facilityLayers.administration, e.target.checked);
+  });
+
+  document.getElementById("toggleSanitation").addEventListener("change", (e) => {
+    MapManager.toggleLayer(MapManager.facilityLayers.sanitation, e.target.checked);
+  });
+
+  document.getElementById("toggleWater").addEventListener("change", (e) => {
+    MapManager.toggleLayer(MapManager.facilityLayers.water, e.target.checked);
+  });
+
+  document.getElementById("toggleEducation").addEventListener("change", (e) => {
+    MapManager.toggleLayer(MapManager.facilityLayers.education, e.target.checked);
+  });
+
+  document.getElementById("toggleHealth").addEventListener("change", (e) => {
+    MapManager.toggleLayer(MapManager.facilityLayers.health, e.target.checked);
+  });
+
+  document.getElementById("toggleLandmark").addEventListener("change", (e) => {
+    MapManager.toggleLayer(MapManager.facilityLayers.landmark, e.target.checked);
+  });
+
+  document.getElementById("toggleLighting").addEventListener("change", (e) => {
+    MapManager.toggleLayer(MapManager.facilityLayers.lighting, e.target.checked);
+  });
+
+  document.getElementById("toggleMarket").addEventListener("change", (e) => {
+    MapManager.toggleLayer(MapManager.facilityLayers.market, e.target.checked);
+  });
+
+  document.getElementById("toggleSocialCare").addEventListener("change", (e) => {
+    MapManager.toggleLayer(MapManager.facilityLayers.socialcare, e.target.checked);
+  });
+
+  document.getElementById("togglePublicSpace").addEventListener("change", (e) => {
+    MapManager.toggleLayer(MapManager.facilityLayers.publicspace, e.target.checked);
+  });
+
+  document.getElementById("toggleTransport").addEventListener("change", (e) => {
+    MapManager.toggleLayer(MapManager.facilityLayers.transport, e.target.checked);
+  });
+
+  document.getElementById("toggleReligious").addEventListener("change", (e) => {
+    MapManager.toggleLayer(MapManager.facilityLayers.religious, e.target.checked);
+  });
+
+  document.getElementById("toggleWaste").addEventListener("change", (e) => {
+    MapManager.toggleLayer(MapManager.facilityLayers.waste, e.target.checked);
+  });
+
+  document.getElementById("toggleOtherFacilities").addEventListener("change", (e) => {
+    MapManager.toggleLayer(MapManager.facilityLayers.other, e.target.checked);
+  });
+</script>
+
+<script>
+  const facilityToggleMap = {
+    toggleAdministration: "administration",
+    toggleSanitation: "sanitation",
+    toggleWater: "water",
+    toggleEducation: "education",
+    toggleHealth: "health",
+    toggleLandmark: "landmark",
+    toggleLighting: "lighting",
+    toggleMarket: "market",
+    toggleSocialCare: "socialcare",
+    togglePublicSpace: "publicspace",
+    toggleTransport: "transport",
+    toggleReligious: "religious",
+    toggleWaste: "waste",
+    toggleOtherFacilities: "other"
+  };
+
+  Object.entries(facilityToggleMap).forEach(([id, key]) => {
+    const checkbox = document.getElementById(id);
+    if (!checkbox) return;
+
+    MapManager.toggleLayer(MapManager.facilityLayers[key], checkbox.checked);
+  });
+</script>
+
+<script>
+  const btnCharts = document.getElementById("btnCharts");
+  const btnTables = document.getElementById("btnTables");
+  const bottomDrawer = document.getElementById("bottomDrawer");
+  const chartsPanel = document.getElementById("chartsPanel");
+  const tablesPanel = document.getElementById("tablesPanel");
+
+  function closeDrawer() {
+    bottomDrawer.classList.remove("open");
+    btnCharts.classList.remove("active");
+    btnTables.classList.remove("active");
+    chartsPanel.classList.remove("active");
+    tablesPanel.classList.remove("active");
+  }
+
+  function openCharts() {
+    bottomDrawer.classList.add("open");
+    btnCharts.classList.add("active");
+    btnTables.classList.remove("active");
+    chartsPanel.classList.add("active");
+    tablesPanel.classList.remove("active");
+  }
+
+  function openTables() {
+    bottomDrawer.classList.add("open");
+    btnTables.classList.add("active");
+    btnCharts.classList.remove("active");
+    tablesPanel.classList.add("active");
+    chartsPanel.classList.remove("active");
+  }
+
+  btnCharts.addEventListener("click", () => {
+    const isAlreadyActive = btnCharts.classList.contains("active");
+    if (isAlreadyActive) {
+      closeDrawer();
+    } else {
+      openCharts();
+    }
+  });
+
+  btnTables.addEventListener("click", () => {
+    const isAlreadyActive = btnTables.classList.contains("active");
+    if (isAlreadyActive) {
+      closeDrawer();
+    } else {
+      openTables();
+    }
+  });
+</script>
+
 </body>
 </html>
